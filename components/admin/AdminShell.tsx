@@ -5,6 +5,7 @@ import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 import { signOutAction } from "@/app/admin/actions";
 import {
+  CategoriesIcon,
   CloseIcon,
   ContentIcon,
   DashboardIcon,
@@ -12,6 +13,7 @@ import {
   MediaIcon,
   MenuIcon,
   PlatformsIcon,
+  ProductsIcon,
   SettingsIcon,
 } from "@/components/admin/icons";
 
@@ -24,6 +26,8 @@ export type AdminUser = {
 const NAV_ITEMS = [
   { href: "/admin", label: "Dashboard", Icon: DashboardIcon },
   { href: "/admin/platforms", label: "Plataformas", Icon: PlatformsIcon },
+  { href: "/admin/products", label: "Produtos", Icon: ProductsIcon },
+  { href: "/admin/categories", label: "Categorias", Icon: CategoriesIcon },
   { href: "/admin/content", label: "Conteúdo", Icon: ContentIcon },
   { href: "/admin/media", label: "Mídia", Icon: MediaIcon },
   { href: "/admin/settings", label: "Configurações", Icon: SettingsIcon },
@@ -32,6 +36,8 @@ const NAV_ITEMS = [
 const PAGE_TITLES: Record<string, string> = {
   "/admin": "Dashboard",
   "/admin/platforms": "Plataformas",
+  "/admin/products": "Produtos",
+  "/admin/categories": "Categorias",
   "/admin/content": "Conteúdo",
   "/admin/media": "Mídia",
   "/admin/settings": "Configurações",

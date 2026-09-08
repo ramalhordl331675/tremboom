@@ -119,3 +119,20 @@ export function ClockIcon({ className }: IconProps) {
     </Base>
   );
 }
+
+export function ProductsIcon({ className }: IconProps) {
+  return (
+    <Base className={className}>
+      <path d="M5 8h14l-1 12H6L5 8Z" />
+      <path d="M9 10V6a3 3 0 0 1 6 0v4" />
+    </Base>
+  );
+}
+
+export function CategoriesIcon({ className }: IconProps) {
+  return (
+    <Base className={className}>
+      <path d="M3 7a1 1 0 0 1 1-1h5l2 2h8a1 1 0 0 1 1 1v9a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V7Z" />
+    </Base>
+  );
+}
