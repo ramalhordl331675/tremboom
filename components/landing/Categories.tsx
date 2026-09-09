@@ -1,4 +1,4 @@
-import { LANDING_CATEGORIES } from "@/lib/landing-placeholders";
+import type { Category } from "@/lib/supabase/categories";
 
 function CategoryGlyph({ icon }: { icon: string }) {
   const cls = "h-6 w-6";
@@ -70,7 +70,32 @@ function CategoryGlyph({ icon }: { icon: string }) {
   }
 }
 
-export function Categories() {
+// A tabela categories não possui coluna de ícone (etapa atual não altera
+// o banco): o glifo é um fallback visual derivado do slug real.
+function iconForSlug(slug: string): string {
+  const s = slug.toLowerCase();
+  if (s.includes("eletro")) return "chip";
+  if (s.includes("casa") || s.includes("cozinha")) return "home";
+  if (s.includes("beleza") || s.includes("saude")) return "heart";
+  if (s.includes("moda")) return "shirt";
+  if (s.includes("esport")) return "ball";
+  if (s.includes("brinquedo")) return "blocks";
+  if (s.includes("auto")) return "wheel";
+  if (s.includes("achadinho")) return "sparkles";
+  return "grid";
+}
+
+/**
+ * Seção de categorias — dados reais do Supabase (somente ativas).
+ * Layout e estilos preservados da Landing aprovada.
+ */
+export function Categories({
+  categories,
+  loadError,
+}: {
+  categories: Category[];
+  loadError: boolean;
+}) {
   return (
     <section id="categorias" aria-labelledby="categorias-title" className="bg-[#FFF8F2]">
       <div className="mx-auto max-w-7xl px-4 py-10 sm:py-12">
@@ -88,23 +113,37 @@ export function Categories() {
           </a>
         </div>
 
-        <ul className="no-scrollbar -mx-4 mt-6 flex gap-3 overflow-x-auto px-4 pb-1 sm:mx-0 sm:grid sm:grid-cols-9 sm:overflow-visible sm:px-0">
-          {LANDING_CATEGORIES.map((c) => (
-            <li key={c.slug} className="shrink-0 sm:shrink">
-              <a
-                href={`#${c.slug}`}
-                className="group flex w-[88px] flex-col items-center gap-2 rounded-2xl border border-orange-100 bg-white p-3 shadow-sm transition hover:-translate-y-1 hover:border-[#EA470C]/40 hover:shadow-[0_12px_32px_-12px_rgb(234_71_12/0.45)] sm:w-auto"
-              >
-                <span className="grid h-12 w-12 place-items-center rounded-full bg-gradient-to-br from-orange-100 to-amber-100 text-[#EA470C] transition group-hover:from-[#F96116] group-hover:to-[#E63A1E] group-hover:text-white">
-                  <CategoryGlyph icon={c.icon} />
-                </span>
-                <span className="text-center text-[11px] font-bold leading-tight text-[#3d2c25]">
-                  {c.label}
-                </span>
-              </a>
-            </li>
-          ))}
-        </ul>
+        {loadError ? (
+          <p
+            role="alert"
+            className="mt-6 rounded-2xl border border-red-100 bg-red-50 p-4 text-center text-sm font-medium text-red-700"
+          >
+            Não foi possível carregar as categorias agora. Tente novamente
+            mais tarde.
+          </p>
+        ) : categories.length === 0 ? (
+          <p className="mt-6 rounded-2xl border border-orange-100 bg-white p-4 text-center text-sm font-medium text-neutral-500">
+            Nenhuma categoria disponível no momento.
+          </p>
+        ) : (
+          <ul className="no-scrollbar -mx-4 mt-6 flex gap-3 overflow-x-auto px-4 pb-1 sm:mx-0 sm:grid sm:grid-cols-9 sm:overflow-visible sm:px-0">
+            {categories.map((c) => (
+              <li key={c.slug} className="shrink-0 sm:shrink">
+                <a
+                  href={`#${c.slug}`}
+                  className="group flex w-[88px] flex-col items-center gap-2 rounded-2xl border border-orange-100 bg-white p-3 shadow-sm transition hover:-translate-y-1 hover:border-[#EA470C]/40 hover:shadow-[0_12px_32px_-12px_rgb(234_71_12/0.45)] sm:w-auto"
+                >
+                  <span className="grid h-12 w-12 place-items-center rounded-full bg-gradient-to-br from-orange-100 to-amber-100 text-[#EA470C] transition group-hover:from-[#F96116] group-hover:to-[#E63A1E] group-hover:text-white">
+                    <CategoryGlyph icon={iconForSlug(c.slug)} />
+                  </span>
+                  <span className="text-center text-[11px] font-bold leading-tight text-[#3d2c25]">
+                    {c.name}
+                  </span>
+                </a>
+              </li>
+            ))}
+          </ul>
+        )}
       </div>
     </section>
   );

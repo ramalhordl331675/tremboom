@@ -8,22 +8,38 @@ import { HowItWorks } from "@/components/landing/HowItWorks";
 import { TrustBar } from "@/components/landing/TrustBar";
 import { AffiliateNotice } from "@/components/landing/AffiliateNotice";
 import { SiteFooter } from "@/components/landing/SiteFooter";
+import { getActiveCategories } from "@/lib/supabase/categories";
+import { getActiveProductsForLanding } from "@/lib/supabase/products";
 
 /**
- * Landing pública "/" — Etapa G1.1 (visual only, modelo de afiliados).
- * Portal de curadoria: descoberta no TremBoom, compra na loja parceira.
- * Sem Supabase, sem busca funcional, sem conta, sem carrinho, sem checkout.
+ * Landing pública "/" — vitrine com dados reais do Supabase
+ * (categorias ativas + produtos ativos ordenados por position/created_at).
+ * Layout e componentes visuais preservados; somente a fonte dos dados
+ * mudou (antes placeholders de lib/landing-placeholders).
  */
-export default function Home() {
+export default async function Home() {
+  const [categoriesResult, productsResult] = await Promise.allSettled([
+    getActiveCategories(),
+    getActiveProductsForLanding(),
+  ]);
+
+  const categories =
+    categoriesResult.status === "fulfilled" ? categoriesResult.value : [];
+  const categoriesError = categoriesResult.status === "rejected";
+
+  const products =
+    productsResult.status === "fulfilled" ? productsResult.value : [];
+  const productsError = productsResult.status === "rejected";
+
   return (
     <div className="flex min-h-screen flex-col">
       <SiteHeader />
-      <CategoryNav />
+      <CategoryNav categories={categories} />
       <main className="flex-1">
         <Hero />
-        <Categories />
+        <Categories categories={categories} loadError={categoriesError} />
         <PromoBanners />
-        <FeaturedProducts />
+        <FeaturedProducts products={products} loadError={productsError} />
         <HowItWorks />
         <TrustBar />
         <AffiliateNotice />

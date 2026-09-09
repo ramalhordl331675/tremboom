@@ -76,3 +76,47 @@ export async function getProductById(id: string): Promise<ProductDetails | null>
 
   return (data ?? null) as ProductDetails | null;
 }
+
+// Vitrine pública da Landing (somente leitura anon via RLS).
+// Espelha getProducts com filtro is_active = true + affiliate_url
+// (necessário ao botão "Ver oferta") — ordenação position ASC,
+// created_at DESC conforme regra da vitrine. Não alterar getProducts
+// (uso do Admin).
+export type LandingProductItem = {
+  id: string;
+  name: string;
+  slug: string;
+  description: string | null;
+  image_url: string | null;
+  price: number | string;
+  old_price: number | string | null;
+  rating: number | string | null;
+  highlight_text: string | null;
+  affiliate_url: string;
+  is_featured: boolean | null;
+  position: number | null;
+  created_at: string | null;
+  category: { id: string; name: string; slug: string } | null;
+  platform: { id: string; name: string; slug: string } | null;
+};
+
+const LANDING_PRODUCT_COLUMNS =
+  "id,name,slug,description,image_url,price,old_price,rating,highlight_text,affiliate_url,is_featured,position,created_at,category:categories(id,name,slug),platform:platforms(id,name,slug)";
+
+export async function getActiveProductsForLanding(): Promise<
+  LandingProductItem[]
+> {
+  const supabase = await createClient();
+  const { data, error } = await supabase
+    .from("products")
+    .select(LANDING_PRODUCT_COLUMNS)
+    .eq("is_active", true)
+    .order("position", { ascending: true })
+    .order("created_at", { ascending: false, nullsFirst: false });
+
+  if (error) {
+    throw new Error("LOAD_LANDING_PRODUCTS_FAILED");
+  }
+
+  return (data ?? []) as unknown as LandingProductItem[];
+}
