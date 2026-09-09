@@ -8,8 +8,93 @@
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+}
+
+@theme {
+  --font-sans: "Inter", var(--font-geist-sans), ui-sans-serif, system-ui,
+    -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+  --font-mono: var(--font-geist-mono), ui-monospace, SFMono-Regular, Menlo,
+    monospace;
+
+  /* TremBoom brand */
+  --color-brand-50: #fff4ec;
+  --color-brand-100: #ffe6d5;
+  --color-brand-200: #feccaa;
+  --color-brand-300: #fdac74;
+  --color-brand-400: #fb813c;
+  --color-brand-500: #f96116;
+  --color-brand-600: #ea470c;
+  --color-brand-700: #c2320c;
+  --color-brand-800: #9a2912;
+  --color-brand-900: #7c2412;
+
+  --color-boom-50: #fef2f2;
+  --color-boom-500: #e63a1e;
+  --color-boom-600: #cf2e14;
+  --color-boom-700: #ad2713;
+
+  --color-sun-300: #ffd968;
+  --color-sun-400: #ffc531;
+  --color-sun-500: #f5a300;
+
+  --color-ink-500: #6f5b52;
+  --color-ink-700: #3d2c25;
+  --color-ink-900: #231610;
+
+  --color-cream-50: #fff8f2;
+  --color-cream-100: #fff1e6;
+  --color-cream-200: #ffe3cf;
+
+  --shadow-card: 0 1px 2px rgb(35 22 16 / 0.06), 0 8px 24px -12px rgb(234 71 12 / 0.25);
+  --shadow-pop: 0 12px 32px -12px rgb(234 71 12 / 0.45);
+
+  --animate-chug: chug 3.2s ease-in-out infinite;
+  --animate-float-soft: float-soft 5s ease-in-out infinite;
+  --animate-puff: puff 3.6s ease-in-out infinite;
+  --animate-rolling: rolling 1.1s linear infinite;
+}
+
+@keyframes chug {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-3px);
+  }
+}
+
+@keyframes float-soft {
+  0%,
+  100% {
+    transform: translateY(0) rotate(var(--float-rotate, 0deg));
+  }
+  50% {
+    transform: translateY(-8px) rotate(var(--float-rotate, 0deg));
+  }
+}
+
+@keyframes puff {
+  0% {
+    opacity: 0;
+    transform: translateY(10px) scale(0.7);
+  }
+  25% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(-46px) scale(1.05);
+  }
+}
+
+@keyframes rolling {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
 }
 
 @media (prefers-color-scheme: dark) {
@@ -19,8 +104,37 @@
   }
 }
 
+html,
+body {
+  overflow-x: clip;
+}
+
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  text-rendering: optimizeLegibility;
+}
+
+/* Scroll horizontal discreto p/ menus e grids no mobile */
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+/* Linha de preço riscado consistente */
+.price-strike {
+  text-decoration: line-through;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
 }
