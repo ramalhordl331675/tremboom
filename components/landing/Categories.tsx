@@ -1,3 +1,4 @@
+import Link from "next/link";
 import type { Category } from "@/lib/supabase/categories";
 
 function CategoryGlyph({ icon }: { icon: string }) {
@@ -129,8 +130,8 @@ export function Categories({
           <ul className="no-scrollbar -mx-4 mt-6 flex gap-3 overflow-x-auto px-4 pb-1 sm:mx-0 sm:grid sm:grid-cols-9 sm:overflow-visible sm:px-0">
             {categories.map((c) => (
               <li key={c.slug} className="shrink-0 sm:shrink">
-                <a
-                  href={`#${c.slug}`}
+                <Link
+                  href={`/categoria/${c.slug}`}
                   className="group flex w-[88px] flex-col items-center gap-2 rounded-2xl border border-orange-100 bg-white p-3 shadow-sm transition hover:-translate-y-1 hover:border-[#EA470C]/40 hover:shadow-[0_12px_32px_-12px_rgb(234_71_12/0.45)] sm:w-auto"
                 >
                   <span className="grid h-12 w-12 place-items-center rounded-full bg-gradient-to-br from-orange-100 to-amber-100 text-[#EA470C] transition group-hover:from-[#F96116] group-hover:to-[#E63A1E] group-hover:text-white">
@@ -139,7 +140,7 @@ export function Categories({
                   <span className="text-center text-[11px] font-bold leading-tight text-[#3d2c25]">
                     {c.name}
                   </span>
-                </a>
+                </Link>
               </li>
             ))}
           </ul>

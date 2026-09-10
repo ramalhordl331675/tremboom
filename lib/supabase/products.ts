@@ -120,3 +120,27 @@ export async function getActiveProductsForLanding(): Promise<
 
   return (data ?? []) as unknown as LandingProductItem[];
 }
+
+/**
+ * Página pública da categoria — somente produtos ativos de uma
+ * categoria (somente leitura anon via RLS). Mesmas colunas e
+ * ordenação da vitrine (position ASC, created_at DESC).
+ */
+export async function getActiveProductsByCategoryId(
+  categoryId: string
+): Promise<LandingProductItem[]> {
+  const supabase = await createClient();
+  const { data, error } = await supabase
+    .from("products")
+    .select(LANDING_PRODUCT_COLUMNS)
+    .eq("is_active", true)
+    .eq("category_id", categoryId)
+    .order("position", { ascending: true })
+    .order("created_at", { ascending: false, nullsFirst: false });
+
+  if (error) {
+    throw new Error("LOAD_LANDING_PRODUCTS_FAILED");
+  }
+
+  return (data ?? []) as unknown as LandingProductItem[];
+}

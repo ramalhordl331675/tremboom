@@ -66,3 +66,27 @@ export async function getCategoryById(
 
   return (data ?? null) as CategoryDetails | null;
 }
+
+/**
+ * Página pública da categoria — busca a categoria ativa pelo slug
+ * (somente leitura anon via RLS). Retorna null quando inexistente
+ * ou inativa (a rota chama notFound()).
+ */
+export async function getActiveCategoryBySlug(
+  slug: string
+): Promise<Category | null> {
+  const supabase = await createClient();
+  const { data, error } = await supabase
+    .from("categories")
+    .select("id,name,slug")
+    .eq("slug", slug)
+    .eq("is_active", true)
+    .limit(1)
+    .maybeSingle();
+
+  if (error) {
+    throw new Error("LOAD_CATEGORY_FAILED");
+  }
+
+  return (data ?? null) as Category | null;
+}
