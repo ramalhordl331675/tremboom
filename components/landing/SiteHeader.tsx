@@ -74,8 +74,8 @@ export function SiteHeader() {
               <TrainLogo className="h-8 w-8" />
             </span>
             <span className="leading-tight">
-              <span className="block text-xl font-black tracking-tight text-white sm:text-2xl">
-                TremBoom
+              <span className="block truncate text-[13px] font-black tracking-tight text-white min-[400px]:text-xl sm:text-2xl">
+                TREMBOOM DA SHOPEE
               </span>
               <span className="hidden text-[11px] font-medium text-orange-100 sm:block">
                 Os melhores achadinhos, em um só lugar!
@@ -117,7 +117,7 @@ export function SiteHeader() {
               className="flex items-center gap-1.5 rounded-xl bg-[#231610] px-3 py-2 text-[13px] font-black text-white shadow-sm transition hover:bg-black sm:gap-2 sm:px-4 sm:py-2.5 sm:text-sm"
             >
               <FlameIcon />
-              <span className="whitespace-nowrap">🔥 Ofertas de hoje</span>
+              <span className="hidden whitespace-nowrap min-[400px]:inline">🔥 Ofertas de hoje</span>
             </a>
           </div>
         </div>
