@@ -53,10 +53,13 @@ export function ProductForm({
   categories,
   platforms,
   product,
+  initialValues,
 }: {
   categories: Category[];
   platforms: Pick<Platform, "id" | "name" | "slug">[];
   product?: ProductDetails;
+  /** Pré-preenchimento seguro vindo da importação pelo link (opcional). */
+  initialValues?: { affiliate_url?: string; platform_id?: string };
 }) {
   const editing = Boolean(product);
   const action = editing
@@ -219,7 +222,12 @@ export function ProductForm({
             <select
               id="platform_id"
               name="platform_id"
-              defaultValue={state.values.platform_id ?? product?.platform_id ?? ""}
+              defaultValue={
+                state.values.platform_id ??
+                product?.platform_id ??
+                initialValues?.platform_id ??
+                ""
+              }
               className={inputClasses}
             >
               <option value="">Nenhuma plataforma</option>
@@ -357,7 +365,12 @@ export function ProductForm({
               required
               inputMode="url"
               placeholder="https://…"
-              defaultValue={state.values.affiliate_url ?? product?.affiliate_url ?? ""}
+              defaultValue={
+                state.values.affiliate_url ??
+                product?.affiliate_url ??
+                initialValues?.affiliate_url ??
+                ""
+              }
               aria-invalid={Boolean(state.errors.affiliate_url)}
               aria-describedby="affiliate-hint affiliate-error"
               className={`${inputClasses} ${withInvalid(Boolean(state.errors.affiliate_url))}`}

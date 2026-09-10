@@ -38,13 +38,21 @@ export default async function AdminProductsPage({
             Gerencie os achadinhos exibidos na vitrine do TremBoom.
           </p>
         </div>
-        <Link
-          href="/admin/products/new"
-          className="inline-flex min-h-11 shrink-0 items-center justify-center gap-2 rounded-md bg-zinc-900 px-4 py-2 text-sm font-semibold text-white transition-colors hover:bg-zinc-700 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-zinc-900"
-        >
-          <PlusIcon className="h-4 w-4" />
-          Adicionar produto
-        </Link>
+        <div className="flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-end">
+          <Link
+            href="/admin/products/import"
+            className="inline-flex min-h-11 shrink-0 items-center justify-center gap-2 rounded-md border border-zinc-300 bg-white px-4 py-2 text-sm font-semibold text-zinc-700 transition-colors hover:bg-zinc-50 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-zinc-900"
+          >
+            ⚡ Importar produto
+          </Link>
+          <Link
+            href="/admin/products/new"
+            className="inline-flex min-h-11 shrink-0 items-center justify-center gap-2 rounded-md bg-zinc-900 px-4 py-2 text-sm font-semibold text-white transition-colors hover:bg-zinc-700 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-zinc-900"
+          >
+            <PlusIcon className="h-4 w-4" />
+            Adicionar produto
+          </Link>
+        </div>
       </div>
 
       {products.length === 0 ? (
