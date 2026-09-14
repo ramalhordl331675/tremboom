@@ -20,6 +20,9 @@ export const metadata: Metadata = {
   description:
     "Encontre achadinhos, ofertas, produtos em destaque e oportunidades selecionadas pelo TremBoom.",
   applicationName: "TremBoom",
+  verification: {
+    google: "h2e6CG0OUNbxRdMDd579ZJBWms0e72_3k8UxOeHJ2Ho",
+  },
   openGraph: {
     title: "TremBoom — Os melhores achadinhos, em um só lugar!",
     description:
