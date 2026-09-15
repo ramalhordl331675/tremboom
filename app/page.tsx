@@ -1,5 +1,6 @@
 import { SiteHeader } from "@/components/landing/SiteHeader";
 import { CategoryNav } from "@/components/landing/CategoryNav";
+import { MainBanner } from "@/components/landing/MainBanner";
 import { Hero } from "@/components/landing/Hero";
 import { HowItWorks } from "@/components/landing/HowItWorks";
 import { Categories } from "@/components/landing/Categories";
@@ -39,6 +40,7 @@ export default async function Home() {
       <SiteHeader />
       <CategoryNav categories={categories} />
       <main className="flex-1">
+        <MainBanner />
         <Hero />
         <HowItWorks />
         <Categories categories={categories} loadError={loadError} />
