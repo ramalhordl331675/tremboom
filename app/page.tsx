@@ -1,4 +1,5 @@
 import { SiteHeader } from "@/components/landing/SiteHeader";
+import { BackToTop } from "@/components/landing/BackToTop";
 import { CategoryNav } from "@/components/landing/CategoryNav";
 import { MainBanner } from "@/components/landing/MainBanner";
 import { Hero } from "@/components/landing/Hero";
@@ -49,6 +50,7 @@ export default async function Home() {
         <TrustBar />
       </main>
       <SiteFooter />
+      <BackToTop />
     </div>
   );
 }
