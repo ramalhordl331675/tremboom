@@ -9,7 +9,7 @@ import {
   getActiveCategories,
   getActiveCategoryBySlug,
 } from "@/lib/supabase/categories";
-import { getActiveProductsByCategoryId } from "@/lib/supabase/products";
+import { getShowcaseProductsByCategory } from "@/lib/supabase/products";
 
 type Params = { slug: string };
 
@@ -52,7 +52,7 @@ export default async function CategoryPage({
 
   const [categoriesResult, products] = await Promise.all([
     getActiveCategories().catch(() => []),
-    getActiveProductsByCategoryId(category.id).catch(() => []),
+    getShowcaseProductsByCategory(category.id).catch(() => []),
   ]);
 
   return (

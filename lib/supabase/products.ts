@@ -77,70 +77,70 @@ export async function getProductById(id: string): Promise<ProductDetails | null>
   return (data ?? null) as ProductDetails | null;
 }
 
-// Vitrine pública da Landing (somente leitura anon via RLS).
-// Espelha getProducts com filtro is_active = true + affiliate_url
-// (necessário ao botão "Ver oferta") — ordenação position ASC,
-// created_at DESC conforme regra da vitrine. Não alterar getProducts
-// (uso do Admin).
-export type LandingProductItem = {
+/**
+ * Vitrine pública: somente produtos ativos, ordenados por posição
+ * (mesmo padrão do Admin). Leitura via anon key, amparada pela policy
+ * "public read active products" (is_active = true).
+ */
+export type ShowcaseProduct = {
   id: string;
   name: string;
   slug: string;
-  description: string | null;
   image_url: string | null;
   price: number | string;
   old_price: number | string | null;
   rating: number | string | null;
-  highlight_text: string | null;
   affiliate_url: string;
+  highlight_text: string | null;
   is_featured: boolean | null;
   position: number | null;
-  created_at: string | null;
   category: { id: string; name: string; slug: string } | null;
   platform: { id: string; name: string; slug: string } | null;
 };
 
-const LANDING_PRODUCT_COLUMNS =
-  "id,name,slug,description,image_url,price,old_price,rating,highlight_text,affiliate_url,is_featured,position,created_at,category:categories(id,name,slug),platform:platforms(id,name,slug)";
+const SHOWCASE_COLUMNS =
+  "id,name,slug,image_url,price,old_price,rating,affiliate_url,highlight_text,is_featured,position,category:categories(id,name,slug),platform:platforms(id,name,slug)";
 
-export async function getActiveProductsForLanding(): Promise<
-  LandingProductItem[]
-> {
+export async function getShowcaseProducts(): Promise<ShowcaseProduct[]> {
   const supabase = await createClient();
   const { data, error } = await supabase
     .from("products")
-    .select(LANDING_PRODUCT_COLUMNS)
+    .select(SHOWCASE_COLUMNS)
     .eq("is_active", true)
     .order("position", { ascending: true })
     .order("created_at", { ascending: false, nullsFirst: false });
 
+  // Erro genérico de propósito: a vitrine exibe mensagem amigável
+  // sem vazar detalhes do Supabase.
   if (error) {
-    throw new Error("LOAD_LANDING_PRODUCTS_FAILED");
+    throw new Error("LOAD_SHOWCASE_FAILED");
   }
 
-  return (data ?? []) as unknown as LandingProductItem[];
+  // PostgREST retorna objeto único em joins many-to-one, mas o cliente
+  // sem tipos gerados infere array; cast via unknown é intencional.
+  return (data ?? []) as unknown as ShowcaseProduct[];
 }
 
 /**
- * Página pública da categoria — somente produtos ativos de uma
- * categoria (somente leitura anon via RLS). Mesmas colunas e
- * ordenação da vitrine (position ASC, created_at DESC).
+ * Vitrine pública filtrada por categoria: somente produtos ativos da
+ * categoria informada (via FK category_id), mesma ordenação da vitrine
+ * geral (position asc, created_at desc). Reaproveita SHOWCASE_COLUMNS.
  */
-export async function getActiveProductsByCategoryId(
+export async function getShowcaseProductsByCategory(
   categoryId: string
-): Promise<LandingProductItem[]> {
+): Promise<ShowcaseProduct[]> {
   const supabase = await createClient();
   const { data, error } = await supabase
     .from("products")
-    .select(LANDING_PRODUCT_COLUMNS)
+    .select(SHOWCASE_COLUMNS)
     .eq("is_active", true)
     .eq("category_id", categoryId)
     .order("position", { ascending: true })
     .order("created_at", { ascending: false, nullsFirst: false });
 
   if (error) {
-    throw new Error("LOAD_LANDING_PRODUCTS_FAILED");
+    throw new Error("LOAD_SHOWCASE_FAILED");
   }
 
-  return (data ?? []) as unknown as LandingProductItem[];
+  return (data ?? []) as unknown as ShowcaseProduct[];
 }

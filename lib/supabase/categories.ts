@@ -68,17 +68,25 @@ export async function getCategoryById(
 }
 
 /**
- * Página pública da categoria — busca a categoria ativa pelo slug
- * (somente leitura anon via RLS). Retorna null quando inexistente
- * ou inativa (a rota chama notFound()).
+ * Categoria pública por slug: somente ativas (RLS "public read active
+ * categories"). Retorna null para slug inexistente ou inativo — a página
+ * pública usa isso para responder 404.
  */
+export type PublicCategory = {
+  id: string;
+  name: string;
+  slug: string;
+  description: string | null;
+  image_url: string | null;
+};
+
 export async function getActiveCategoryBySlug(
   slug: string
-): Promise<Category | null> {
+): Promise<PublicCategory | null> {
   const supabase = await createClient();
   const { data, error } = await supabase
     .from("categories")
-    .select("id,name,slug")
+    .select("id,name,slug,description,image_url")
     .eq("slug", slug)
     .eq("is_active", true)
     .limit(1)
@@ -88,5 +96,5 @@ export async function getActiveCategoryBySlug(
     throw new Error("LOAD_CATEGORY_FAILED");
   }
 
-  return (data ?? null) as Category | null;
+  return (data ?? null) as PublicCategory | null;
 }

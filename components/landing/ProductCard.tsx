@@ -1,5 +1,5 @@
 import { brl } from "@/lib/landing-placeholders";
-import type { LandingProductItem } from "@/lib/supabase/products";
+import type { ShowcaseProduct } from "@/lib/supabase/products";
 
 function toNumber(value: number | string | null): number | null {
   if (value === null || value === undefined) return null;
@@ -32,7 +32,7 @@ function Stars({ rating }: { rating: number }) {
   );
 }
 
-function ProductThumb({ product }: { product: LandingProductItem }) {
+function ProductThumb({ product }: { product: ShowcaseProduct }) {
   const badge = product.highlight_text ?? (product.is_featured ? "Destaque" : null);
   const price = toNumber(product.price) ?? 0;
   const oldPrice = toNumber(product.old_price);
@@ -72,7 +72,7 @@ function ProductThumb({ product }: { product: LandingProductItem }) {
 /**
  * Card de produto da vitrine — mesmo visual em "/" e "/categoria/[slug]".
  */
-export function ProductCard({ product: p }: { product: LandingProductItem }) {
+export function ProductCard({ product: p }: { product: ShowcaseProduct }) {
   const price = toNumber(p.price) ?? 0;
   const oldPrice = toNumber(p.old_price);
   const rating = toNumber(p.rating);

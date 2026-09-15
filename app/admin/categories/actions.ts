@@ -159,6 +159,8 @@ export async function createCategoryAction(
   }
 
   revalidatePath("/admin/categories");
+  // "/" com layout: revalida a Home e todas as páginas /categoria/[slug].
+  revalidatePath("/", "layout");
   redirect("/admin/categories?created=1");
   return { ok: false, errors: {}, values: {} };
 }
@@ -216,6 +218,8 @@ export async function updateCategoryAction(
   }
 
   revalidatePath("/admin/categories");
+  // "/" com layout: revalida a Home e todas as páginas /categoria/[slug].
+  revalidatePath("/", "layout");
   redirect("/admin/categories?updated=1");
   return { ok: false, errors: {}, values: {} };
 }
@@ -259,6 +263,8 @@ export async function deleteCategoryAction(
   }
 
   revalidatePath("/admin/categories");
+  // "/" com layout: revalida a Home e todas as páginas /categoria/[slug].
+  revalidatePath("/", "layout");
   redirect("/admin/categories?deleted=1");
   return { ok: true, message: "" };
 }

@@ -299,6 +299,7 @@ export async function createProductAction(
   }
 
   revalidatePath("/admin/products");
+  revalidatePath("/");
   redirect("/admin/products?created=1");
   return { ok: false, errors: {}, values: {} };
 }
@@ -372,6 +373,7 @@ export async function updateProductAction(
   }
 
   revalidatePath("/admin/products");
+  revalidatePath("/");
   redirect("/admin/products?updated=1");
   return { ok: false, errors: {}, values: {} };
 }
@@ -408,6 +410,7 @@ export async function deleteProductAction(
   }
 
   revalidatePath("/admin/products");
+  revalidatePath("/");
   redirect("/admin/products?deleted=1");
   return { ok: true, message: "" };
 }

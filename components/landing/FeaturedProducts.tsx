@@ -1,4 +1,4 @@
-import type { LandingProductItem } from "@/lib/supabase/products";
+import type { ShowcaseProduct } from "@/lib/supabase/products";
 import { ProductCard } from "./ProductCard";
 
 /**
@@ -10,7 +10,7 @@ export function FeaturedProducts({
   products,
   loadError,
 }: {
-  products: LandingProductItem[];
+  products: ShowcaseProduct[];
   loadError: boolean;
 }) {
   return (
