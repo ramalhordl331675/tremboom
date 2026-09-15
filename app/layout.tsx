@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Script from "next/script";
 import { Geist, Geist_Mono } from "next/font/google";
+import { VisitTracker } from "@/components/analytics/VisitTracker";
 import "./globals.css";
 
 const GA_MEASUREMENT_ID = "G-7PX77178W5";
@@ -62,6 +63,7 @@ export default function RootLayout({
         `}
       </Script>
       <body className="flex min-h-full flex-col bg-[#FFF8F2] font-sans text-[#231610] antialiased">
+        <VisitTracker />
         {children}
       </body>
     </html>

@@ -1,6 +1,7 @@
 "use client";
 
 import { TrainLogo } from "./TrainLogo";
+import { VisitCounter } from "@/components/analytics/VisitCounter";
 
 const COLS: { title: string; links: { label: string; href: string }[] }[] = [
   {
@@ -97,6 +98,7 @@ export function SiteFooter() {
 
         <div className="mt-10 flex flex-col items-center justify-between gap-3 border-t border-white/10 pt-5 text-xs sm:flex-row">
           <p>© 2026 TremBoom — Todos os direitos reservados.</p>
+          <VisitCounter />
           <p className="text-white/50">
             Alguns links podem gerar comissão para o TremBoom.
           </p>
