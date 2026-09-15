@@ -109,20 +109,20 @@ export function HeroTrain() {
       </div>
 
       <div className="animate-[chug_3.2s_ease-in-out_infinite]">
-        <div className="flex items-end justify-center gap-1 sm:gap-2">
+        <div className="flex min-w-0 items-end justify-center gap-1 sm:gap-2">
           {/* LOCOMOTIVA */}
-          <div className="relative w-[46%]">
+          <div className="relative min-w-0 w-[46%]">
             <div className="absolute -top-7 left-6 h-7 w-6 rounded-t-md bg-[#231610]">
               <span className="absolute -top-1 left-1/2 h-2 w-8 -translate-x-1/2 rounded-full bg-[#231610]" />
             </div>
             <div className="relative overflow-hidden rounded-2xl bg-gradient-to-br from-[#F96116] to-[#E63A1E] p-3 shadow-[0_16px_32px_-16px_rgb(234_71_12/0.7)] ring-1 ring-black/10">
-              <div className="flex items-center gap-2">
-                <span className="grid h-9 w-12 place-items-center rounded-lg bg-[#231610] text-[9px] font-black text-yellow-300">
+              <div className="flex min-w-0 items-center gap-2">
+                <span className="grid h-9 w-12 shrink-0 place-items-center rounded-lg bg-[#231610] text-[9px] font-black text-yellow-300">
                   TB-01
                 </span>
-                <span className="h-9 flex-1 rounded-lg bg-sky-200/90 ring-2 ring-white/60" />
+                <span className="h-9 min-w-0 flex-1 rounded-lg bg-sky-200/90 ring-2 ring-white/60" />
               </div>
-              <p className="mt-2 rounded-lg bg-yellow-400 px-2 py-1 text-center text-[11px] font-black uppercase tracking-wide text-[#231610]">
+              <p className="mt-2 rounded-lg bg-yellow-400 px-2 py-1 text-center text-[11px] font-black uppercase leading-tight tracking-wide break-words text-[#231610]">
                 Ofertas imperdíveis
               </p>
               <div className="mt-2 flex items-end justify-between">
@@ -134,10 +134,10 @@ export function HeroTrain() {
           </div>
 
           {/* Engate */}
-          <span className="mb-6 h-1.5 w-3 rounded-full bg-[#231610]/70 sm:w-5" />
+          <span className="mb-6 h-1.5 w-3 shrink-0 rounded-full bg-[#231610]/70 sm:w-5" />
 
           {/* VAGÃO 1 */}
-          <div className="relative w-[27%]">
+          <div className="relative min-w-0 w-[27%]">
             <div className="flex -translate-y-1 items-end justify-center gap-1">
               <span className="grid h-9 w-9 place-items-center rounded-lg bg-white text-orange-600 shadow ring-1 ring-black/5">
                 <MiniGlyph kind="box" />
@@ -147,7 +147,7 @@ export function HeroTrain() {
               </span>
             </div>
             <div className="rounded-2xl bg-[#231610] p-2 text-center shadow-lg ring-1 ring-black/20">
-              <p className="rounded-lg bg-emerald-400 px-1 py-1 text-[10px] font-black uppercase leading-tight text-[#0b2b1d]">
+              <p className="rounded-lg bg-emerald-400 px-1 py-1 text-[10px] font-black uppercase leading-tight break-words text-[#0b2b1d]">
                 Frete grátis
               </p>
               <div className="mt-2 flex items-center justify-center gap-2">
@@ -158,10 +158,10 @@ export function HeroTrain() {
           </div>
 
           {/* Engate */}
-          <span className="mb-6 h-1.5 w-3 rounded-full bg-[#231610]/70 sm:w-5" />
+          <span className="mb-6 h-1.5 w-3 shrink-0 rounded-full bg-[#231610]/70 sm:w-5" />
 
           {/* VAGÃO 2 */}
-          <div className="relative w-[27%]">
+          <div className="relative min-w-0 w-[27%]">
             <div className="flex -translate-y-1 items-end justify-center gap-1">
               <span className="grid h-10 w-10 place-items-center rounded-full bg-sky-100 text-sky-600 shadow ring-1 ring-black/5">
                 <MiniGlyph kind="bottle" />
@@ -171,7 +171,7 @@ export function HeroTrain() {
               </span>
             </div>
             <div className="rounded-2xl bg-white p-2 text-center shadow-lg ring-1 ring-orange-200">
-              <p className="rounded-lg bg-[#E63A1E] px-1 py-1 text-[10px] font-black uppercase leading-tight text-white">
+              <p className="rounded-lg bg-[#E63A1E] px-1 py-1 text-[10px] font-black uppercase leading-tight break-words text-white">
                 Cupons de desconto
               </p>
               <div className="mt-2 flex items-center justify-center gap-2">

@@ -63,7 +63,7 @@ export function SiteHeader() {
           <button
             type="button"
             aria-label="Abrir menu"
-            className="rounded-lg p-1.5 text-white transition hover:bg-white/15 lg:hidden"
+            className="shrink-0 rounded-lg p-1.5 text-white transition hover:bg-white/15 lg:hidden"
           >
             <MenuIcon />
           </button>
@@ -73,7 +73,7 @@ export function SiteHeader() {
             <span className="grid h-11 w-11 shrink-0 place-items-center rounded-2xl bg-white shadow-sm">
               <TrainLogo className="h-8 w-8" />
             </span>
-            <span className="leading-tight">
+            <span className="min-w-0 leading-tight">
               <span className="block truncate text-[13px] font-black tracking-tight text-white min-[400px]:text-xl sm:text-2xl">
                 TREMBOOM DA SHOPEE
               </span>
@@ -111,7 +111,7 @@ export function SiteHeader() {
           </form>
 
           {/* Ações */}
-          <div className="ml-auto flex items-center gap-1 sm:gap-2 md:ml-0">
+          <div className="ml-auto flex shrink-0 items-center gap-1 sm:gap-2 md:ml-0">
             <a
               href="#destaques"
               className="flex items-center gap-1.5 rounded-xl bg-[#231610] px-3 py-2 text-[13px] font-black text-white shadow-sm transition hover:bg-black sm:gap-2 sm:px-4 sm:py-2.5 sm:text-sm"

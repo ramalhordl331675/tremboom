@@ -76,16 +76,16 @@ export function SiteFooter() {
             </form>
           </div>
 
-          <nav aria-label="Rodapé" className="grid grid-cols-2 gap-6 sm:grid-cols-3">
+          <nav aria-label="Rodapé" className="grid min-w-0 grid-cols-1 gap-6 min-[420px]:grid-cols-2 sm:grid-cols-3">
             {COLS.map((col) => (
-              <div key={col.title}>
+              <div key={col.title} className="min-w-0">
                 <h3 className="text-sm font-black uppercase tracking-widest text-white">
                   {col.title}
                 </h3>
                 <ul className="mt-3 space-y-2">
                   {col.links.map((l) => (
-                    <li key={l.label}>
-                      <a href={l.href} className="text-sm transition hover:text-yellow-300">
+                    <li key={l.label} className="min-w-0">
+                      <a href={l.href} className="text-sm break-words transition hover:text-yellow-300">
                         {l.label}
                       </a>
                     </li>

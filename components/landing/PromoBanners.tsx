@@ -37,7 +37,7 @@ export function PromoBanners() {
             <a
               key={b.eyebrow}
               href={b.href}
-              className={`group relative overflow-hidden rounded-2xl bg-gradient-to-br ${b.style} p-5 shadow-[0_1px_2px_rgb(35_22_16/0.06),0_8px_24px_-12px_rgb(234_71_12/0.25)] transition hover:-translate-y-0.5`}
+              className={`group relative min-w-0 overflow-hidden rounded-2xl bg-gradient-to-br ${b.style} p-5 shadow-[0_1px_2px_rgb(35_22_16/0.06),0_8px_24px_-12px_rgb(234_71_12/0.25)] transition hover:-translate-y-0.5`}
             >
               <div aria-hidden="true" className="pointer-events-none absolute -right-8 -top-8 h-32 w-32 rounded-full bg-white/15 blur-2xl transition group-hover:scale-125" />
               <span className={`inline-block rounded-full px-2.5 py-1 text-[11px] font-black uppercase tracking-widest ${b.chip}`}>

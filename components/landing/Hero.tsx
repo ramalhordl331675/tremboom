@@ -26,9 +26,9 @@ export function Hero() {
         <div className="absolute bottom-0 left-1/3 h-40 w-[36rem] rounded-full bg-yellow-200/40 blur-3xl" />
       </div>
 
-      <div className="relative mx-auto grid max-w-7xl items-center gap-8 px-4 pb-10 pt-10 sm:pt-14 lg:grid-cols-2 lg:gap-6 lg:pb-14">
+      <div className="relative mx-auto grid max-w-7xl min-w-0 items-center gap-8 px-4 pb-10 pt-10 sm:pt-14 lg:grid-cols-2 lg:gap-6 lg:pb-14">
         {/* Lado esquerdo */}
-        <div className="text-center lg:text-left">
+        <div className="min-w-0 text-center lg:text-left">
           <span className="inline-flex items-center gap-2 rounded-full border border-orange-200 bg-white px-3 py-1.5 text-xs font-bold text-[#EA470C] shadow-sm">
             <span className="relative flex h-2 w-2">
               <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-[#EA470C] opacity-60" />
@@ -40,7 +40,7 @@ export function Hero() {
           <p className="mt-4 text-sm font-black uppercase tracking-[0.3em] text-[#EA470C]">
             TremBoom
           </p>
-          <h1 className="mt-1 text-4xl font-black leading-[1.05] tracking-tight text-[#231610] sm:text-5xl xl:text-6xl">
+          <h1 className="mt-1 text-balance text-3xl font-black leading-[1.08] tracking-tight break-words text-[#231610] min-[400px]:text-4xl sm:text-5xl xl:text-6xl">
             Os melhores achadinhos,{" "}
             <span className="bg-gradient-to-r from-[#F96116] to-[#E63A1E] bg-clip-text text-transparent">
               em um só lugar!
@@ -89,9 +89,9 @@ export function Hero() {
         </div>
 
         {/* Lado direito — locomotiva */}
-        <div className="relative">
-          <div className="rounded-[2rem] border border-orange-100 bg-white/70 p-2 shadow-[0_1px_2px_rgb(35_22_16/0.06),0_8px_24px_-12px_rgb(234_71_12/0.25)] backdrop-blur">
-            <div className="rounded-[1.6rem] bg-gradient-to-b from-sky-100 via-orange-50 to-amber-100 px-2">
+        <div className="relative min-w-0">
+          <div className="min-w-0 rounded-[2rem] border border-orange-100 bg-white/70 p-2 shadow-[0_1px_2px_rgb(35_22_16/0.06),0_8px_24px_-12px_rgb(234_71_12/0.25)] backdrop-blur">
+            <div className="min-w-0 overflow-hidden rounded-[1.6rem] bg-gradient-to-b from-sky-100 via-orange-50 to-amber-100 px-2">
               <HeroTrain />
             </div>
           </div>

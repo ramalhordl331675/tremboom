@@ -16,8 +16,8 @@ export function FeaturedProducts({
   return (
     <section id="destaques" aria-labelledby="destaques-title" className="bg-[#FFF8F2]">
       <div className="mx-auto max-w-7xl px-4 py-10 sm:py-12">
-        <div className="flex items-end justify-between gap-4">
-          <h2 id="destaques-title" className="text-2xl font-black tracking-tight text-[#231610] sm:text-3xl">
+        <div className="flex flex-wrap items-end justify-between gap-x-4 gap-y-2">
+          <h2 id="destaques-title" className="min-w-0 text-xl font-black tracking-tight break-words text-[#231610] min-[400px]:text-2xl sm:text-3xl">
             🔥 Produtos em destaque
           </h2>
           <a href="#destaques" className="shrink-0 text-sm font-bold text-[#EA470C] hover:underline">
@@ -43,7 +43,7 @@ export function FeaturedProducts({
             achadinhos.
           </p>
         ) : (
-          <ul className="mt-6 grid grid-cols-2 gap-3 sm:gap-4 lg:grid-cols-4">
+          <ul className="mt-6 grid min-w-0 grid-cols-1 gap-3 min-[420px]:grid-cols-2 sm:gap-4 md:grid-cols-3 lg:grid-cols-4">
             {products.map((p) => (
               <ProductCard key={p.id} product={p} />
             ))}

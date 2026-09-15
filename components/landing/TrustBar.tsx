@@ -67,9 +67,9 @@ export function TrustBar() {
               <span className="grid h-12 w-12 shrink-0 place-items-center rounded-xl bg-gradient-to-br from-[#F96116] to-[#E63A1E] text-white shadow-sm">
                 <BenefitIcon icon={b.icon} />
               </span>
-              <span>
-                <span className="block text-sm font-black text-[#231610]">{b.title}</span>
-                <span className="block text-xs text-neutral-500">{b.desc}</span>
+              <span className="min-w-0">
+                <span className="block text-sm font-black break-words text-[#231610]">{b.title}</span>
+                <span className="block text-xs break-words text-neutral-500">{b.desc}</span>
               </span>
             </li>
           ))}

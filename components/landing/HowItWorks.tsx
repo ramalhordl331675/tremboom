@@ -38,7 +38,7 @@ export function HowItWorks() {
           {STEPS.map((s) => (
             <li
               key={s.n}
-              className="rounded-2xl border border-orange-100 bg-[#FFF8F2] p-5 text-center shadow-sm"
+              className="min-w-0 rounded-2xl border border-orange-100 bg-[#FFF8F2] p-5 text-center shadow-sm"
             >
               <span className="mx-auto grid h-10 w-10 place-items-center rounded-full bg-gradient-to-br from-[#F96116] to-[#E63A1E] text-base font-black text-white">
                 {s.n}

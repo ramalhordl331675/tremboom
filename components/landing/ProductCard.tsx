@@ -56,12 +56,12 @@ function ProductThumb({ product }: { product: ShowcaseProduct }) {
         </div>
       )}
       {badge ? (
-        <span className="absolute left-2 top-2 rounded-md bg-[#231610] px-2 py-1 text-[10px] font-black uppercase tracking-wider text-yellow-300">
+        <span className="absolute left-2 top-2 max-w-[calc(100%-1rem)] rounded-md bg-[#231610] px-2 py-1 text-[10px] font-black uppercase tracking-wider break-words text-yellow-300">
           {badge}
         </span>
       ) : null}
       {pct > 0 ? (
-        <span className="absolute right-2 top-2 rounded-md bg-[#E63A1E] px-2 py-1 text-[10px] font-black text-white">
+        <span className="absolute right-2 top-2 max-w-[calc(100%-1rem)] rounded-md bg-[#E63A1E] px-2 py-1 text-[10px] font-black break-words text-white">
           -{pct}%
         </span>
       ) : null}
@@ -89,7 +89,7 @@ export function ProductCard({ product: p }: { product: ShowcaseProduct }) {
           {p.name}
         </p>
         {rating !== null ? (
-          <div className="flex items-center gap-1.5" aria-hidden="true">
+          <div className="flex min-w-0 flex-wrap items-center gap-1.5" aria-hidden="true">
             <Stars rating={rating} />
             <span className="text-[11px] font-medium text-neutral-500">
               {rating.toFixed(1)}
