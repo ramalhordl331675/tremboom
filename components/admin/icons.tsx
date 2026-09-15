@@ -136,3 +136,14 @@ export function CategoriesIcon({ className }: IconProps) {
     </Base>
   );
 }
+
+export function PartnersIcon({ className }: IconProps) {
+  return (
+    <Base className={className}>
+      <circle cx="8.5" cy="8" r="3" />
+      <circle cx="16" cy="9.5" r="2.5" />
+      <path d="M3.5 20a5 5 0 0 1 10 0" />
+      <path d="M13.5 20a4 4 0 0 1 7-2.7" />
+    </Base>
+  );
+}

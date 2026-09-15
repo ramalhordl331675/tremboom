@@ -7,10 +7,12 @@ import { HowItWorks } from "@/components/landing/HowItWorks";
 import { Categories } from "@/components/landing/Categories";
 import { PromoBanners } from "@/components/landing/PromoBanners";
 import { FeaturedProducts } from "@/components/landing/FeaturedProducts";
+import { PartnersSection } from "@/components/landing/Partners";
 import { TrustBar } from "@/components/landing/TrustBar";
 import { SiteFooter } from "@/components/landing/SiteFooter";
 import { getActiveCategories } from "@/lib/supabase/categories";
 import { getShowcaseProducts } from "@/lib/supabase/products";
+import { getActivePartners } from "@/lib/supabase/partners";
 
 /**
  * Landing pública "/" — portal de curadoria de afiliados.
@@ -24,9 +26,10 @@ import { getShowcaseProducts } from "@/lib/supabase/products";
 export const revalidate = 60;
 
 export default async function Home() {
-  const [categoriesResult, productsResult] = await Promise.allSettled([
+  const [categoriesResult, productsResult, partnersResult] = await Promise.allSettled([
     getActiveCategories(),
     getShowcaseProducts(),
+    getActivePartners(),
   ]);
   const categories =
     categoriesResult.status === "fulfilled" ? categoriesResult.value : [];
@@ -35,6 +38,10 @@ export default async function Home() {
   const loadError =
     categoriesResult.status === "rejected" ||
     productsResult.status === "rejected";
+
+  // Parceiros: falha silenciosa => seção oculta (não quebra a landing).
+  const partners =
+    partnersResult.status === "fulfilled" ? partnersResult.value : [];
 
   return (
     <div className="flex min-h-screen min-w-0 flex-col">
@@ -47,6 +54,7 @@ export default async function Home() {
         <Categories categories={categories} loadError={loadError} />
         <PromoBanners />
         <FeaturedProducts products={products} loadError={loadError} />
+        <PartnersSection partners={partners} />
         <TrustBar />
       </main>
       <SiteFooter />
