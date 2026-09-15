@@ -1,3 +1,6 @@
+"use client";
+
+import { useState } from "react";
 import { brl } from "@/lib/landing-placeholders";
 import type { ShowcaseProduct } from "@/lib/supabase/products";
 
@@ -10,6 +13,23 @@ function toNumber(value: number | string | null): number | null {
 function discountPct(price: number, oldPrice: number | null): number {
   if (oldPrice === null || oldPrice <= 0 || oldPrice <= price) return 0;
   return Math.round((1 - price / oldPrice) * 100);
+}
+
+/**
+ * Variante reduzida ("thumbnail") do CDN da Shopee.
+ * Transforma SOMENTE URLs do padrão
+ * `https://*.susercontent.com/file/<id>[.<ext>]` em `<id>_tn`
+ * (mesma imagem, ~480px, bem mais leve para os cards).
+ * Qualquer outra URL é devolvida INALTERADA.
+ */
+export function toShopeeThumb(url: string): string {
+  const match = url.match(
+    /^(https:\/\/[^/]*susercontent\.com\/file\/[^/?#]+?)(?:\.(jpe?g|png|webp|gif|jfif|bmp|avif))?([?#].*)?$/i,
+  );
+  if (!match) return url;
+  const [, base, , suffix] = match;
+  if (base.toLowerCase().endsWith("_tn")) return url;
+  return `${base}_tn${suffix ?? ""}`;
 }
 
 function Stars({ rating }: { rating: number }) {
@@ -37,14 +57,26 @@ function ProductThumb({ product }: { product: ShowcaseProduct }) {
   const price = toNumber(product.price) ?? 0;
   const oldPrice = toNumber(product.old_price);
   const pct = discountPct(price, oldPrice);
+  const original = product.image_url;
+  const [src, setSrc] = useState<string | null>(
+    original ? toShopeeThumb(original) : null,
+  );
   return (
     <div className="relative aspect-square overflow-hidden bg-gradient-to-br from-orange-100 to-amber-100">
-      {product.image_url ? (
+      {src ? (
         // eslint-disable-next-line @next/next/no-img-element
         <img
-          src={product.image_url}
+          src={src}
           alt={product.name}
           loading="lazy"
+          decoding="async"
+          width={660}
+          height={660}
+          onError={() => {
+            // Fallback único para a URL original; o guard impede
+            // qualquer loop caso a original também falhe.
+            if (original && src !== original) setSrc(original);
+          }}
           className="h-full w-full object-cover"
         />
       ) : (
