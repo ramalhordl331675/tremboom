@@ -48,12 +48,12 @@ export default async function Home() {
       <SiteHeader />
       <CategoryNav categories={categories} />
       <main className="min-w-0 flex-1">
+        <FeaturedProducts products={products} loadError={loadError} />
         <MainBanner />
         <Hero />
         <HowItWorks />
         <Categories categories={categories} loadError={loadError} />
         <PromoBanners />
-        <FeaturedProducts products={products} loadError={loadError} />
         <PartnersSection partners={partners} />
         <TrustBar />
       </main>
