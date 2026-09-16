@@ -17,15 +17,33 @@ import { getActivePartners } from "@/lib/supabase/partners";
 /**
  * Landing pública "/" — portal de curadoria de afiliados.
  * A vitrine (#destaques) exibe produtos ativos do banco (tabela products);
- * o restante da página segue visual, sem busca funcional, sem checkout
- * próprio e sem tracking.
+ * a busca simples via ?q= filtra pelo nome sobre os produtos já
+ * carregados (sem nova consulta). O restante da página segue visual,
+ * sem checkout próprio e sem tracking.
  *
  * ISR de 60s + revalidação de "/" a cada salvamento no Admin
  * (ver app/admin/products/actions.ts).
  */
 export const revalidate = 60;
 
-export default async function Home() {
+/** Normaliza para busca: minúsculas e sem acentos ("maquina" acha "máquina"). */
+function normalizeForSearch(value: string): string {
+  return value
+    .toLowerCase()
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "");
+}
+
+export default async function Home({
+  searchParams,
+}: {
+  searchParams?: Promise<{ q?: string | string[] }>;
+}) {
+  const resolvedParams = (await searchParams) ?? {};
+  const rawQ = Array.isArray(resolvedParams.q)
+    ? resolvedParams.q[0]
+    : resolvedParams.q;
+  const query = (rawQ ?? "").trim();
   const [categoriesResult, productsResult, partnersResult] = await Promise.allSettled([
     getActiveCategories(),
     getShowcaseProducts(),
@@ -35,6 +53,11 @@ export default async function Home() {
     categoriesResult.status === "fulfilled" ? categoriesResult.value : [];
   const products =
     productsResult.status === "fulfilled" ? productsResult.value : [];
+  // Busca local: filtra pelo nome; q vazio/ausente => todos os produtos.
+  const queryNorm = normalizeForSearch(query);
+  const visibleProducts = queryNorm
+    ? products.filter((p) => normalizeForSearch(p.name).includes(queryNorm))
+    : products;
   const loadError =
     categoriesResult.status === "rejected" ||
     productsResult.status === "rejected";
@@ -49,7 +72,7 @@ export default async function Home() {
       <CategoryNav categories={categories} />
       <main className="min-w-0 flex-1">
         <MainBanner />
-        <FeaturedProducts products={products} loadError={loadError} />
+        <FeaturedProducts products={visibleProducts} loadError={loadError} />
         <Hero />
         <HowItWorks />
         <Categories categories={categories} loadError={loadError} />

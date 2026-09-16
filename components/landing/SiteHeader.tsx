@@ -1,5 +1,7 @@
 "use client";
 
+import type { FormEvent } from "react";
+import { useRouter, useSearchParams } from "next/navigation";
 import { TrainLogo } from "./TrainLogo";
 
 function SearchIcon({ className = "h-5 w-5" }: { className?: string }) {
@@ -46,6 +48,19 @@ function FlameIcon({ className = "h-4 w-4" }: { className?: string }) {
  * Busca é apenas visual nesta etapa.
  */
 export function SiteHeader() {
+  const router = useRouter();
+  const searchParams = useSearchParams();
+  const currentQ = searchParams.get("q") ?? "";
+
+  // Busca simples: navega para /?q=termo (ou "/" quando vazio).
+  // A filtragem acontece em app/page.tsx sobre os produtos já carregados.
+  function handleSearchSubmit(e: FormEvent<HTMLFormElement>) {
+    e.preventDefault();
+    const raw = new FormData(e.currentTarget).get("q");
+    const term = (typeof raw === "string" ? raw : "").trim();
+    router.push(term ? `/?q=${encodeURIComponent(term)}#destaques` : "/");
+  }
+
   return (
     <header className="sticky top-0 z-40 shadow-[0_2px_16px_-6px_rgb(234_71_12/0.5)]">
       {/* Faixa utilitária */}
@@ -88,7 +103,7 @@ export function SiteHeader() {
             role="search"
             aria-label="Buscar produtos"
             className="hidden min-w-0 flex-1 md:flex"
-            onSubmit={(e) => e.preventDefault()}
+            onSubmit={handleSearchSubmit}
           >
             <label htmlFor="busca-desktop" className="sr-only">
               Buscar produtos
@@ -96,6 +111,9 @@ export function SiteHeader() {
             <div className="flex w-full overflow-hidden rounded-xl bg-white p-1 pl-4 shadow-sm focus-within:ring-2 focus-within:ring-yellow-300">
               <input
                 id="busca-desktop"
+                name="q"
+                key={`desktop-${currentQ}`}
+                defaultValue={currentQ}
                 type="search"
                 placeholder="Busque por achadinhos, marcas e categorias…"
                 className="min-w-0 flex-1 bg-transparent text-sm text-neutral-800 outline-none placeholder:text-neutral-400"
@@ -127,7 +145,7 @@ export function SiteHeader() {
           <form
             role="search"
             aria-label="Buscar produtos"
-            onSubmit={(e) => e.preventDefault()}
+            onSubmit={handleSearchSubmit}
           >
             <label htmlFor="busca-mobile" className="sr-only">
               Buscar produtos
@@ -135,6 +153,9 @@ export function SiteHeader() {
             <div className="flex overflow-hidden rounded-xl bg-white p-1 pl-4 shadow-sm">
               <input
                 id="busca-mobile"
+                name="q"
+                key={`mobile-${currentQ}`}
+                defaultValue={currentQ}
                 type="search"
                 placeholder="O que você procura hoje?"
                 className="min-w-0 flex-1 bg-transparent text-sm text-neutral-800 outline-none placeholder:text-neutral-400"
