@@ -24,6 +24,9 @@ export const metadata: Metadata = {
   verification: {
     google: "h2e6CG0OUNbxRdMDd579ZJBWms0e72_3k8UxOeHJ2Ho",
   },
+  other: {
+    "google-adsense-account": "ca-pub-9305912765720630",
+  },
   openGraph: {
     title: "TremBoom — Os melhores achadinhos, em um só lugar!",
     description:
@@ -50,6 +53,12 @@ export default function RootLayout({
       lang="pt-BR"
       className={`${geistSans.variable} ${geistMono.variable} h-full scroll-smooth antialiased`}
     >
+      <Script
+        async
+        src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9305912765720630"
+        crossOrigin="anonymous"
+        strategy="afterInteractive"
+      />
       <Script
         src={`https://www.googletagmanager.com/gtag/js?id=${GA_MEASUREMENT_ID}`}
         strategy="afterInteractive"
